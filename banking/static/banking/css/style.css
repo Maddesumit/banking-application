@@ -27,3 +27,123 @@ body {
 }
 
 /* Add more custom styles as needed */
+
+
+/* General Styles */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Arial', sans-serif;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+/* Account Card Styles */
+.account-card {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    margin-bottom: 20px;
+}
+
+.account-card:hover {
+    transform: translateY(-5px);
+}
+
+.account-header {
+    background-color: #007bff;
+    color: white;
+    padding: 15px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.account-body {
+    padding: 20px;
+}
+
+.balance-display {
+    font-size: 24px;
+    font-weight: bold;
+    color: #28a745;
+}
+
+/* Transaction Styles */
+.transaction-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.transaction-item {
+    border-left: 4px solid #6c757d;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    background-color: white;
+}
+
+.transaction-deposit {
+    border-left-color: #28a745;
+}
+
+.transaction-withdrawal {
+    border-left-color: #dc3545;
+}
+
+.transaction-transfer {
+    border-left-color: #007bff;
+}
+
+.transaction-amount {
+    font-weight: bold;
+}
+
+.amount-positive {
+    color: #28a745;
+}
+
+.amount-negative {
+    color: #dc3545;
+}
+
+/* Form Styles */
+.form-container {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Profile Styles */
+.account-img {
+    height: 100px;
+    width: 100px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+    object-fit: cover;
+}
+
+.media {
+    display: flex;
+    align-items: flex-start;
+}
+
+.media-body {
+    flex: 1;
+}
+
+
+/* Add this to your existing CSS file */
+.rupee-symbol {
+    font-family: Arial, sans-serif;
+    font-weight: normal;
+}
+
+/* You can also update your existing amount styles */
+.amount-positive:before {
+    content: "₹";
+}
+
+.amount-negative:before {
+    content: "-₹";
+}

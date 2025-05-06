@@ -26,6 +26,15 @@ urlpatterns = [
     path('password-reset-complete/', 
          auth_views.PasswordResetCompleteView.as_view(template_name='banking/password_reset_complete.html'), 
          name='password_reset_complete'),
+    
+    # Banking functionality URLs
+    path('dashboard/', banking_views.dashboard, name='dashboard'),
+    path('account/<str:account_number>/', banking_views.account_detail, name='account_detail'),
+    path('transactions/', banking_views.transaction_history, name='transaction_history'),
+    path('transfer/', banking_views.transfer, name='transfer'),
+    path('create-account/', banking_views.create_account, name='create_account'),
+    # Add this to your existing urlpatterns
+    path('admin-topup/', banking_views.admin_topup, name='admin_topup'),
 ]
 
 if settings.DEBUG:

@@ -1,0 +1,31 @@
+{% extends 'banking/base.html' %}
+
+{% block title %}Open New Account - Banking App{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4>Open New Account</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="account_type">Account Type</label>
+                        <select class="form-control" id="account_type" name="account_type" required>
+                            <option value="">Select Account Type</option>
+                            {% for type_code, type_name in account_types %}
+                                <option value="{{ type_code }}">{{ type_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success">Open Account</button>
+                    <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

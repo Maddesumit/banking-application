@@ -1,0 +1,97 @@
+{% extends 'banking/base.html' %}
+{% load custom_filters %}
+
+{% block title %}Admin Top-up - Banking App{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card mb-4">
+            <div class="card-header bg-warning text-white">
+                <h4>Admin Balance Top-up</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="account_number">Account Number</label>
+                        <input type="text" class="form-control" id="account_number" name="account_number" 
+                               placeholder="Enter account number" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="amount">Amount to Add</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">₹</span>
+                            </div>
+                            <input type="number" class="form-control" id="amount" name="amount" 
+                                   placeholder="Amount in Rupees" step="0.01" min="0.01" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" class="form-control" id="description" name="description" 
+                               placeholder="System top-up" value="System top-up">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-warning">Add Balance</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h4>All Accounts</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Owner</th>
+                                <th>Account Number</th>
+                                <th>Type</th>
+                                <th>Balance</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for account in accounts %}
+                            <tr>
+                                <td>{{ account.owner.username }}</td>
+                                <td>{{ account.account_number }}</td>
+                                <td>{{ account.get_account_type_display }}</td>
+                                <td>{{ account.balance|indian_currency }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary select-account" 
+                                            data-account="{{ account.account_number }}">
+                                        Select
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add click event to all select buttons
+        const selectButtons = document.querySelectorAll('.select-account');
+        selectButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const accountNumber = this.getAttribute('data-account');
+                document.getElementById('account_number').value = accountNumber;
+                // Scroll to the form
+                document.querySelector('.card').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    });
+</script>
+{% endblock %}
