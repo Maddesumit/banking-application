@@ -1,0 +1,80 @@
+{% extends 'banking/base.html' %}
+{% load custom_filters %}
+
+{% block title %}Dashboard - Banking App{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2>Welcome, {{ user.username }}!</h2>
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h4>Account Summary</h4>
+            </div>
+            <div class="card-body">
+                <h5>Total Balance: {{ total_balance|indian_currency }}</h5>
+                <hr>
+                <h5>Your Accounts</h5>
+                {% if accounts %}
+                    <div class="row">
+                    {% for account in accounts %}
+                        <div class="col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-header">
+                                    {{ account.get_account_type_display }}
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ account.account_number }}</h5>
+                                    <p class="card-text">Balance: {{ account.balance|indian_currency }}</p>
+                                    <a href="{% url 'account_detail' account.id %}" class="btn btn-info btn-sm">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                {% else %}
+                    <p>You don't have any accounts yet.</p>
+                    <a href="{% url 'create_account' %}" class="btn btn-success">Open New Account</a>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4>Recent Transactions</h4>
+            </div>
+            <div class="card-body">
+                {% if recent_transactions %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Account</th>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for transaction in recent_transactions %}
+                                <tr>
+                                    <td>{{ transaction.timestamp|date:"M d, Y" }}</td>
+                                    <td>{{ transaction.account.account_number }}</td>
+                                    <td>{{ transaction.get_transaction_type_display }}</td>
+                                    <td>${{ transaction.amount }}</td>
+                                    <td>{{ transaction.description }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <a href="{% url 'transaction_history' %}" class="btn btn-info">View All Transactions</a>
+                {% else %}
+                    <p>No recent transactions.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
