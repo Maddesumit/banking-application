@@ -1,0 +1,29 @@
+/* Custom styles for the banking application */
+body {
+    background-color: #f8f9fa;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+/* Profile image styling */
+.account-img {
+    height: 150px;
+    width: 150px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+    object-fit: cover;
+}
+
+.media {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.media-body {
+    margin-left: 10px;
+}
+
+/* Add more custom styles as needed */
